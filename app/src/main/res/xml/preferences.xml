@@ -37,6 +37,10 @@
 			<!--android:defaultValue="true"-->
 			<!--android:key="downloadWaPo" />-->
 		<com.jenzz.materialpreference.CheckBoxPreference
+			android:title="The Hindu Crossword"
+			android:defaultValue="true"
+			android:key="downloadTHCrosswords" />
+		<com.jenzz.materialpreference.CheckBoxPreference
 			android:title="Newsday"
 			android:defaultValue="true"
 			android:key="downloadNewsday" />

@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     Properties props = new Properties()
-    props.load(new FileInputStream(System.getProperty("user.home")+"/androidkeyinfo.properties"))
+    props.load(new FileInputStream(System.getProperty("user.home") + "/androidkeyinfo.properties"))
     compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 21
@@ -12,13 +12,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(System.getProperty("user.home")+"/androidkeystore")
-            storePassword props.getProperty("storePassword")
-            keyAlias "robert \"kebernet\" cooper"
-            keyPassword props.getProperty("keyPassword")
+            storeFile file(System.getProperty("user.home") + '/.android/debug.keystore')
         }
         release {
-            storeFile file(System.getProperty("user.home")+"/androidkeystore")
+            storeFile file(System.getProperty("user.home") + "/androidkeystore")
             storePassword props.getProperty("storePassword")
             keyAlias "robert \"kebernet\" cooper"
             keyPassword props.getProperty("keyPassword")
@@ -26,9 +23,9 @@ android {
     }
     buildTypes {
         release {
-             signingConfig signingConfigs.release
-             minifyEnabled true
-             proguardFile file('src/build/proguard-android.txt')
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFile file('src/build/proguard-android.txt')
         }
     }
 }
@@ -37,16 +34,16 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.google.android.gms:play-services:4.0.30'
-    compile project(":puzlib")
+    compile project(':puzlib')
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jenzz:materialpreference:1.3'
+    compile 'org.jsoup:jsoup:1.8.1'
     compile 'com.android.support:design:22.2.0'
     compile 'com.google.api-client:google-api-client:1.20.0'
     compile 'com.google.api-client:google-api-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-gson:1.20.0'
     compile 'com.google.apis:google-api-services-gmail:v1-rev29-1.20.0'
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:4.3.1'
-
 }
 
 task prepareChrome << {
@@ -59,7 +56,7 @@ task prepareChrome << {
             include "**/*.html"
             filter {
                 it.replaceAll('@@versionCode@@', versionCode)
-                  .replaceAll('@@versionName@@', versionName)
+                        .replaceAll('@@versionName@@', versionName)
             }
         }
         into "build/chrome"
@@ -82,7 +79,7 @@ task assembleChrome << {
 tasks.assembleChrome.dependsOn prepareChrome
 tasks.assembleChrome.dependsOn assembleRelease
 
-task packageChrome(type:Zip){
+task packageChrome(type: Zip) {
     from "build/chrome"
     archiveName "shortyz-chrome.zip"
 }
